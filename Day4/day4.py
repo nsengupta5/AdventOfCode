@@ -33,7 +33,7 @@ def part1():
                     break
 
             for col in zip(*board):
-                if col == [-1] * 5:
+                if list(col) == [-1] * 5:
                     winner = k
                     break
 
