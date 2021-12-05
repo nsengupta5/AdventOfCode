@@ -12,11 +12,22 @@ def getData():
 
     return (nums, boards)
 
-def part1():
+def getTotalScore(board, index):
+    total_score = 0
+    for row in board:
+        for col in row:
+            if col != -1:
+                total_score += int(col)
+
+    total_score *= int(index)
+    return total_score
+
+def main():
     data = getData()
     boards = data[1]
     nums = data[0]
 
+    winner_index = []
     winners = []
     index = -1
     while len(winners) < len(boards):
@@ -32,23 +43,19 @@ def part1():
                 for row in board:
                     if row == [-1] * 5:
                         winners.append(k)
+                        winner_index.append(index)
                         found = True
                         break
 
                 if not found:
                     for col in zip(*board):
                         if list(col) == [-1] * 5:
+                            winner_index.append(index)
                             winners.append(k)
                             break
 
-    total_score = 0
-    for row in boards[winners[-1]]:
-        for col in row:
-            if col != -1:
-                total_score += int(col)
-
-    total_score *= int(nums[index])
-    print(total_score)
+    print("Part 1: " + str(getTotalScore(boards[winners[0]], nums[winner_index[0]])))
+    print("Part 2: " + str(getTotalScore(boards[winners[-1]], nums[winner_index[-1]])))
     
 if __name__ == "__main__":
-    part1()
+    main()
