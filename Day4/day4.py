@@ -17,28 +17,32 @@ def part1():
     boards = data[1]
     nums = data[0]
 
-    winner = -1
+    winners = []
     index = -1
-    while winner == -1:
+    while len(winners) < len(boards):
         index += 1
         for k, board in enumerate(boards):
-            for i, row in enumerate(board):
-                for j, col in enumerate(row):
-                    if col == nums[index]:
-                        board[i][j] = -1
+            if k not in winners:
+                for i, row in enumerate(board):
+                    for j, col in enumerate(row):
+                        if col == nums[index]:
+                            board[i][j] = -1
 
-            for row in board:
-                if row == [-1] * 5:
-                    winner = k
-                    break
+                found = False
+                for row in board:
+                    if row == [-1] * 5:
+                        winners.append(k)
+                        found = True
+                        break
 
-            for col in zip(*board):
-                if list(col) == [-1] * 5:
-                    winner = k
-                    break
+                if not found:
+                    for col in zip(*board):
+                        if list(col) == [-1] * 5:
+                            winners.append(k)
+                            break
 
     total_score = 0
-    for row in boards[winner]:
+    for row in boards[winners[-1]]:
         for col in row:
             if col != -1:
                 total_score += int(col)
