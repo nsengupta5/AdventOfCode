@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/nsengupta5/AoC/helper"
+	"github.com/nsengupta5/AdventOfCode/helper"
 )
 
 func getColumns(puzzleInput string) ([]string, []string) {
