@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func GetSession() string {
+func getSession() string {
 	session := os.Getenv("SESSION_ID")
 	if session == "" {
 		fmt.Println("SESSION_ID not set")
@@ -17,8 +17,9 @@ func GetSession() string {
 	return session
 }
 
-func GetPuzzleInput(day uint8, year uint16, session string) (string, error) {
+func GetPuzzleInput(day uint8, year uint16) (string, error) {
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
+	session := getSession()
 
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
